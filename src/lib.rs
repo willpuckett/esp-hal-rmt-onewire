@@ -2,15 +2,15 @@
 
 use embassy_futures::select::*;
 use esp_hal::{
+    Async,
     gpio::{
-        interconnect::*, DriveMode, DriveStrength, Flex, InputConfig, Level, OutputConfig, Pin,
-        Pull,
+        DriveMode, DriveStrength, Flex, InputConfig, Level, OutputConfig, Pin, Pull,
+        interconnect::*,
     },
     rmt::{
         Channel, PulseCode, Rx, RxChannelConfig, RxChannelCreator, Tx, TxChannelConfig,
         TxChannelCreator,
     },
-    Async,
 };
 
 pub struct OneWire<'a> {
@@ -129,11 +129,7 @@ impl<'a> OneWire<'a> {
 
     pub fn decode_bit(code: PulseCode) -> bool {
         let len = code.length1();
-        if len < 20 {
-            true
-        } else {
-            false
-        }
+        if len < 20 { true } else { false }
     }
 
     pub async fn exchange_byte(&mut self, byte: u8) -> Result<u8, Error> {

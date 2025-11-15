@@ -9,7 +9,7 @@ compile_error!(
 #[cfg(all(feature = "example-esp32c3", feature = "example-esp32c6"))]
 compile_error!("Only one example target feature can be enabled at a time.");
 
-use embassy_executor::{task, Executor};
+use embassy_executor::{Executor, task};
 use esp_backtrace as _;
 use esp_hal::{clock::CpuClock, delay::Delay, rmt::*, time::Rate};
 use esp_hal_rmt_onewire::{OneWire, Search};
