@@ -18,6 +18,7 @@ use static_cell::StaticCell;
 
 static EXECUTOR: StaticCell<Executor> = StaticCell::new();
 
+#[cfg(feature = "example-deps")]
 esp_bootloader_esp_idf::esp_app_desc!();
 
 #[esp_hal::main]

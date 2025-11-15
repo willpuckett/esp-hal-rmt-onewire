@@ -72,11 +72,13 @@ impl<'a> OneWire<'a> {
 
         let sample0 = PulseCode::from(indata[0]);
         let sample1 = PulseCode::from(indata[1]);
+        const PRESENCE_MIN_TICKS: u16 = 30; // 30 µs with 1 MHz tick
+        const PRESENCE_MAX_TICKS: u16 = 500; // generous upper bound for noisy buses
 
         Ok(sample0.length1() > 0
             && sample0.length2() > 0
-            && sample1.length1() > 100
-            && sample1.length1() < 200)
+            && sample1.length1() >= PRESENCE_MIN_TICKS
+            && sample1.length1() <= PRESENCE_MAX_TICKS)
     }
 
     pub async fn send_and_receive(
